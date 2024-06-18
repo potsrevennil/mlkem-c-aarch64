@@ -26,13 +26,13 @@ USE_DYNAMIC_FRAMES=1
 CBMCFLAGS=--smt2
 
 # Uncomment this to see what commands litani is running...
-#VERBOSE=on
+VERBOSE=on
 
 # If this proof is found to consume huge amounts of RAM, you can set the
 # EXPENSIVE variable. With new enough versions of the proof tools, this will
 # restrict the number of EXPENSIVE CBMC jobs running at once. See the
 # documentation in Makefile.common under the "Job Pools" heading for details.
-# EXPENSIVE = true
+EXPENSIVE = true
 
 # If you require access to a file-local ("static") function or object to conduct
 # your proof, set the following (and do not include the original source file
