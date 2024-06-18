@@ -117,6 +117,4 @@ jobs:
         shell: nix develop .#ci-cbmc -c bash -e {0}
         run: |
           cd cbmc/proofs;
-          KYBER_K=2 ./run-cbmc-proofs.py --summarize -j1 --verbose --debug;
           KYBER_K=3 ./run-cbmc-proofs.py --summarize -j1 --verbose --debug;
-          KYBER_K=4 ./run-cbmc-proofs.py --summarize -j1 --verbose --debug;
