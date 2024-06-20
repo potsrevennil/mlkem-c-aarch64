@@ -17,6 +17,7 @@ jobs:
         with:
           devShell: ci
           script: |
+            echo ""
             ARCH=$(uname -m)
             cat >> $GITHUB_STEP_SUMMARY <<-EOF
               ## Setup
