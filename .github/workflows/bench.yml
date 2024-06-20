@@ -9,7 +9,7 @@ on:
 jobs:
   bench:
     runs-on: self-hosted-rpi4
-    if: github.repository_owner == 'potsrevennil' && contains(github.event.pull_request.labels.*.name, 'benchmark')
+    if: github.repository_owner == 'potsrevennil' && contains(github.event.pull_request.labels.*.name, 'benchmark') || github.ref == 'refs/heads/main')
     steps:
       - uses: actions/checkout@v4
       - name: Setup nix
@@ -17,6 +17,7 @@ jobs:
         with:
           devShell: ci
           script: |
+            echo "${{ github.ref }}"
             ARCH=$(uname -m)
             cat >> $GITHUB_STEP_SUMMARY <<-EOF
               ## Setup
