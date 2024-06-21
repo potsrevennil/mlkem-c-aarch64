@@ -118,3 +118,9 @@ jobs:
         run: |
           cd cbmc/proofs;
           KYBER_K=3 ./run-cbmc-proofs.py --summarize -j1 --verbose --debug;
+      - uses: actions/upload-artifact@v4
+        with:
+          name: proof-logs
+          path: |
+            cbmc/proofs/output/latest/html
+            cbmc/proofs/**/logs/result.xml
