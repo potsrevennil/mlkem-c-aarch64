@@ -93,6 +93,7 @@ jobs:
           lint
   cbmc:
     strategy:
+      fail-fast: false
       matrix:
         system: [macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.system }}
