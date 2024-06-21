@@ -119,6 +119,7 @@ jobs:
           cd cbmc/proofs;
           KYBER_K=3 ./run-cbmc-proofs.py --summarize -j1 --verbose --debug;
       - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
         with:
           name: proof-logs
           path: |
