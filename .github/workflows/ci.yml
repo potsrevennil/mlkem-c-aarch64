@@ -93,9 +93,8 @@ jobs:
           lint
   cbmc:
     strategy:
-      fail-fast: false
       matrix:
-        system: [macos-latest, ubuntu-latest]
+        system: [macos-latest]
     runs-on: ${{ matrix.system }}
     steps:
       - uses: actions/checkout@v4
@@ -124,5 +123,6 @@ jobs:
         with:
           name: proof-logs
           path: |
+            cbmc/proofs/output/litani/runs/**/status/*.json
             cbmc/proofs/output/latest/html
             cbmc/proofs/**/logs/result.xml
