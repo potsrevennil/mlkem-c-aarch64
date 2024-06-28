@@ -1,0 +1,21 @@
+name: Bench
+on:
+  push:
+    branches: ["main"]
+jobs:
+  bench:
+    strategy:
+      fail-fast: true
+      matrix:
+        system: [ macos-latest, linux-latest ]
+    runs-on: ${{ matrix.system }}
+    steps:
+      - name: mac
+        if: $${{ matrix.system }} == macos-latest
+        run: |
+          echo "This is mac"
+
+      - name: linux
+        if: $${{ matrix.system }} == linux-latest
+        run: |
+          echo "This is linux"
