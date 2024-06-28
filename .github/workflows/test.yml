@@ -11,11 +11,11 @@ jobs:
     runs-on: ${{ matrix.system }}
     steps:
       - name: mac
-        if: false
+        if: matrix.system == 'macos-latest'
         run: |
           echo "This is mac on ${{ matrix.system }}"
 
       - name: linux
-        if: false
+        if: matrix.system != 'linux-latest'
         run: |
           echo "This is linux on ${{ matrix.system }}"
