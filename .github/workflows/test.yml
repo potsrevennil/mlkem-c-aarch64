@@ -16,6 +16,6 @@ jobs:
           echo "This is mac on ${{ matrix.system }}"
 
       - name: linux
-        if: matrix.system != 'macos-latest'
+        if: matrix.system == 'linux-latest'
         run: |
           echo "This is linux on ${{ matrix.system }}"
