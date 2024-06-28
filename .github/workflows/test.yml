@@ -1,7 +1,7 @@
 name: Bench
 on:
   push:
-    branches: ["main"]
+    branches: ["*"]
 jobs:
   bench:
     strategy:
