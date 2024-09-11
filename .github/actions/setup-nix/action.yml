@@ -16,10 +16,13 @@ runs:
   steps:
     - uses: DeterminateSystems/nix-installer-action@v13
     - uses: DeterminateSystems/magic-nix-cache-action@v7
+    - name: Log start
+      shell: bash
+      run: |
+        echo "::group::Nix"
     - name: Prepare nix dev shell
       shell: nix develop .#${{ inputs.devShell }} -c bash -e {0}
       run: |
-        echo "::group::Nix"
     - name: Dependency check
       shell: nix develop .#${{ inputs.devShell }} -c bash -e {0}
       if: inputs.script != ''

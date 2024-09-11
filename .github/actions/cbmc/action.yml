@@ -23,6 +23,7 @@ runs:
         with:
           devShell: ci-cbmc
           script: |
+            echo "::group::nix"
             cat >> $GITHUB_STEP_SUMMARY << EOF
               ## Setup
               Architecture: $(uname -m)
@@ -33,6 +34,7 @@ runs:
               - $(${{ inputs.cross_prefix }}gcc --version | grep -m1 "")
               - $(bash --version | grep -m1 "")
             EOF
+            echo "::endgroup::nix"
       - name: Set shell
         shell: bash
         run: echo SHELL="${{ inputs.use-nix && 'nix develop .#ci-cbmc -c bash -e {0}' || inputs.custom_shell }}" >> $GITHUB_ENV
