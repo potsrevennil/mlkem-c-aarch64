@@ -19,9 +19,12 @@ runs:
     - name: Prepare nix dev shell
       shell: nix develop .#${{ inputs.devShell }} -c bash -e {0}
       run: |
+        echo "::group::Nix"
     - name: Dependency check
       shell: nix develop .#${{ inputs.devShell }} -c bash -e {0}
       if: inputs.script != ''
       env:
         INPUT_SCRIPT: ${{ inputs.script }}
-      run: eval "$INPUT_SCRIPT"
+      run: |
+        eval "$INPUT_SCRIPT"
+        echo "::endgroup::"
