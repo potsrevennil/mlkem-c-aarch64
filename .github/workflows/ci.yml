@@ -27,6 +27,8 @@ jobs:
            name: 'ubuntu-latest (aarch64)'
          - runner: pqcp-x64
            name: 'ubuntu-latest (x86_64)'
+         - runner: ubuntu-latest
+           name: 'ubuntu-latest (x86_64, share)'
         exclude:
           - {external: true,
              target: {
