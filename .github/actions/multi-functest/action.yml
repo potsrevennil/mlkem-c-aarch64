@@ -17,7 +17,7 @@ inputs:
     description: all | native | cross
     default: "native"
   opt:
-    description: all | opt | non-opt
+    description: all | opt | no-opt
     default: "all"
   func:
     description: Determine whether to run functional test or not
@@ -31,51 +31,27 @@ inputs:
 runs:
   using: composite
   steps:
-      - name: Native Opt Tests
-        if: ${{ (inputs.compile_mode == 'all' || inputs.compile_mode == 'native') && (inputs.opt == 'all' || inputs.opt == 'opt') }}
+      - name: Native Tests
+        if: ${{ (inputs.compile_mode == 'all' || inputs.compile_mode == 'native') }}
         uses: ./.github/actions/functest
         with:
           nix-shell: ${{ inputs.nix-shell }}
           custom_shell: ${{ inputs.custom_shell }}
           cflags: ${{ inputs.cflags }}
           mode: native
-          opt: true
+          opt: ${{ inputs.opt }}
           func: ${{ inputs.func }}
           kat: ${{ inputs.kat }}
           nistkat: ${{ inputs.nistkat }}
-      - name: Native Non-opt Tests
-        if: ${{ (inputs.compile_mode == 'all' || inputs.compile_mode == 'native') && (inputs.opt == 'all' || inputs.opt == 'non-opt') && (success() || failure()) }}
-        uses: ./.github/actions/functest
-        with:
-          nix-shell: ${{ inputs.nix-shell }}
-          custom_shell: ${{ inputs.custom_shell }}
-          cflags: ${{ inputs.cflags }}
-          mode: native
-          opt: false
-          func: ${{ inputs.func }}
-          kat: ${{ inputs.kat }}
-          nistkat: ${{ inputs.nistkat }}
-      - name: Cross Opt Tests
-        if: ${{ (inputs.compile_mode == 'all' || inputs.compile_mode == 'cross') && (inputs.opt == 'all' || inputs.opt == 'opt') && (success() || failure()) }}
+      - name: Cross Tests
+        if: ${{ (inputs.compile_mode == 'all' || inputs.compile_mode == 'cross') && (success() || failure()) }}
         uses: ./.github/actions/functest
         with:
           nix-shell: ${{ inputs.nix-shell }}
           custom_shell: ${{ inputs.custom_shell }}
           cflags: ${{ inputs.cflags }}
           mode: cross
-          opt: true
-          func: ${{ inputs.func }}
-          kat: ${{ inputs.kat }}
-          nistkat: ${{ inputs.nistkat }}
-      - name: Cross Non-opt Tests
-        if: ${{ (inputs.compile_mode == 'all' || inputs.compile_mode == 'cross') && (inputs.opt == 'all' || inputs.opt == 'non-opt') && (success() || failure()) }}
-        uses: ./.github/actions/functest
-        with:
-          nix-shell: ${{ inputs.nix-shell }}
-          custom_shell: ${{ inputs.custom_shell }}
-          cflags: ${{ inputs.cflags }}
-          mode: cross
-          opt: false
+          opt: ${{ inputs.opt }}
           func: ${{ inputs.func }}
           kat: ${{ inputs.kat }}
           nistkat: ${{ inputs.nistkat }}

@@ -44,17 +44,10 @@ jobs:
     runs-on: ${{ matrix.target.runner }}
     steps:
       - uses: actions/checkout@v4
-      - name: native tests
+      - name: tests
         uses: ./.github/actions/multi-functest
         with:
-          compile_mode: native
-      - name: cross tests (opt only)
-        if: ${{ matrix.target.runner == 'pqcp-arm64' && (success() || failure()) }}
-        uses: ./.github/actions/multi-functest
-        with:
-          compile_mode: cross
-          func: false
-          nistkat: false
+          compile_mode: ${{ matrix.target.runner == 'macos-latest' && 'native' || 'all' }}
 
   lint:
     strategy:
