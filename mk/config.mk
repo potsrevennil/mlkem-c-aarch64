@@ -43,6 +43,7 @@ Q ?= @
 QEMU = qemu-aarch64
 
 HOST_PLATFORM := $(shell uname -s)-$(shell uname -m)
+# linux x86_64
 ifeq ($(HOST_PLATFORM),Linux-x86_64)
 	CFLAGS += -z noexecstack
 endif
@@ -61,15 +62,23 @@ ifeq ($(CYCLES),M1)
 	CFLAGS += -DM1_CYCLES
 endif
 
+OPT ?= 1
+ifeq ($(OPT),1)
+	CPPFLAGS += -DMLKEM_USE_NATIVE
+endif
+
 ##############################
 # Include retained variables #
 ##############################
 
+AUTO ?= 1
 RNG ?=
-BENCH :=
 CYCLES ?=
-OPT ?= 1
-RETAINED_VARS := RNG BENCH CYCLES OPT
+RETAINED_VARS := RNG CYCLES OPT AUTO CROSS_PREFIX
+
+ifeq ($(AUTO),1)
+include mk/auto.mk
+endif
 
 BUILD_DIR := test/build
 LIB_DIR := $(BUILD_DIR)/lib
