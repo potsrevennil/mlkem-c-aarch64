@@ -79,11 +79,12 @@ runs:
         run: |
           catch() {
             exit_code=$?
-            echo "::error title=${{ inputs.mode }} ${{ inputs.opt }} tests failed: $exit_code"
+            echo "::error title=${{ inputs.mode }} ${{ inputs.opt }} tests failed: $exit_code::"
             exit $exit_code
           }
           trap 'catch' ERR
 
+          fail
           tests all  --cross-prefix="${{ env.CROSS_PREFIX }}" --cflags="${{ inputs.cflags }}" --opt=${{ inputs.opt }} --${{ env.FUNC }} --${{ env.KAT }} --${{ env.NISTKAT }} -v
       - name: Post ${{ inputs.mode }} Tests
         shell: ${{ env.SHELL }}
