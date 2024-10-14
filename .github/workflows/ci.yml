@@ -45,13 +45,15 @@ jobs:
       - name: native build
         uses: ./.github/actions/multi-functest
         with:
+          nix-cache: false
           compile_mode: native
           func: false
           nistkat: false
-          kat: falst
+          kat: false
       - name: native tests (+debug)
         uses: ./.github/actions/multi-functest
         with:
+          nix-cache: false
           compile_mode: native
           cflags: "-DMLKEM_DEBUG"
       - name: cross tests (opt only)
@@ -73,7 +75,6 @@ jobs:
       - uses: ./.github/actions/lint
         with:
           nix-shell: ci-linter
-          cross-prefix: "aarch64-unknown-linux-gnu-"
   ec2_all:
     strategy:
       fail-fast: false

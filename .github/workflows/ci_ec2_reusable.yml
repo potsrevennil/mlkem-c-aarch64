@@ -109,7 +109,7 @@ jobs:
       - name: Functional Tests
         uses: ./.github/actions/multi-functest
         with:
-          nix-cache: false
+          nix-cache: ${{ inputs.compile_mode == 'cross' }}
           nix-verbose: ${{ inputs.verbose }}
           cflags: ${{ inputs.cflags }}
           compile_mode: ${{ inputs.compile_mode }}
