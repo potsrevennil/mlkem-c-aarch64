@@ -56,8 +56,13 @@ runs:
       run: |
         nix config check
     - uses: DeterminateSystems/magic-nix-cache-action@v8
-      if: ${{ env.NIX_SHELL == '' && inputs.cache == 'true' }}
+      if: ${{ env.NIX_CACHE_ENABLED != 1 && inputs.cache == 'true' }}
       continue-on-error: true
+    - name: Post nix cache
+      if: ${{ env.NIX_CACHE_ENABLED != 1 && inputs.cache == 'true' }}
+      shell: bash -leo pipefail {0}
+      run: |
+        echo NIX_CACHE_ENABLED=1 >> $GITHUB_ENV
     - name: Set Shell
       shell: bash -leo pipefail {0}
       run: |
