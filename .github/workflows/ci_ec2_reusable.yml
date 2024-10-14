@@ -120,8 +120,8 @@ jobs:
           compile_mode: ${{ inputs.compile_mode }}
           opt: ${{ inputs.opt }}
           func: ${{ inputs.functest }}
-          kat: ${{ inputs.kattest }}
-          nistkat: ${{ inputs.nistkattest }}
+          kat: ${{ inputs.kat }}
+          nistkat: ${{ inputs.nistkat }}
       - name: Linting
         if: ${{ inputs.lint && (success() || failure()) }}
         uses: ./.github/actions/lint

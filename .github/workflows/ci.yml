@@ -27,6 +27,8 @@ jobs:
            name: 'ubuntu-latest (aarch64)'
          - runner: pqcp-x64
            name: 'ubuntu-latest (x86_64)'
+         - runner: ubuntu-latest
+           name: 'ubuntu-latest (x86_64, share)'
         exclude:
           - {external: true,
              target: {
@@ -59,12 +61,13 @@ jobs:
           compile_mode: native
           cflags: "-DMLKEM_DEBUG"
       - name: cross tests (opt only)
-        if: ${{ matrix.target.runner == 'pqcp-arm64' && (success() || failure()) }}
+        if: ${{ (matrix.target.runner == 'pqcp-arm64' || matrix.target.runner == 'ubuntu-latest' ) && (success() || failure()) }}
         uses: ./.github/actions/multi-functest
         with:
           compile_mode: cross
           func: false
           nistkat: false
+          kat: false
 
   lint:
     strategy:

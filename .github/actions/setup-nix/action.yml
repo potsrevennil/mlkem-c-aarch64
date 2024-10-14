@@ -35,38 +35,47 @@ runs:
 
         trap 'suppress $LINENO' ERR
 
-        . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         nix --version
         nix config show | grep -E "^trusted-users = .*$USER"
         nix config show | grep -E "^experimental-features = .*flakes"
         nix config show | grep -E "^experimental-features = .*nix-command"
 
-    - name: Install nix
-      if: steps.pre-check-nix.outputs.install-nix
+    - name: Install Nix (on macOS)
       shell: bash -leo pipefail {0}
+      if: ${{ runner.os == 'macOS' }}
       run: |
         curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm \
         --extra-conf "trusted-users = root ${USER:-}" \
         --extra-conf "experimental-features = nix-command flakes"
 
         . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    - name: Install Nix (on Linux)
+      if: ${{ runner.os == 'Linux' }}
+      uses: nixbuild/nix-quick-install-action@v28
     - name: Post-check nix
       continue-on-error: true
       shell: bash -leo pipefail {0}
       run: |
         echo "::group::nix config check"
         nix config check
-        nix config show
         echo "::endgroup::"
-    - uses: DeterminateSystems/magic-nix-cache-action@v8
-      if: ${{ inputs.cache == 'true' }}
-      continue-on-error: true
+    - uses: nix-community/cache-nix-action@v5
+      with:
+        primary-key: ${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('**/*.nix') }}
+        restore-prefixes-first-match: ${{ runner.os }}-${{ runner.arch }}
+        gc-max-store-size-linux: 1073741824
+        purge: true
+        purge-prefixes: cache-${{ runner.os }}-${{ runner.arch }}
+        purge-created: 0
+        purge-primary-key: never
     - name: Set Shell
       shell: bash -leo pipefail {0}
       run: |
+        echo "::group::set nix shell"
         echo NIX_SHELL="${{ inputs.devShell }}" >> $GITHUB_ENV
         nix_extra_flags="${{ inputs.verbose == 'false' && '--quiet' || '' }}"
         echo SHELL="$(which nix) develop $nix_extra_flags .#${{ inputs.devShell }} -c bash -e {0}" >> $GITHUB_ENV
+        echo "::endgroup::"
     - name: Prepare nix dev shell
       shell: ${{ env.SHELL }}
       run: |
