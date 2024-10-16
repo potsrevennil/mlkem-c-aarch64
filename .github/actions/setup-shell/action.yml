@@ -22,6 +22,9 @@ inputs:
   script:
     description: The script to be run in the nix shell
     required: false
+  gh_token:
+    description: Github access token to use
+    required: true
 
 runs:
   using: composite
@@ -31,6 +34,7 @@ runs:
       if: ${{ inputs.use-nix == 'true' && (env.SHELL == '' || env.Nix_SHELL != inputs.nix-shell) }}
       with:
         devShell: ${{ inputs.nix-shell }}
+        gh_token: ${{ inputs.gh_token }}
         verbose: ${{ inputs.nix-verbose }}
         cache: ${{ inputs.nix-cache }}
         script: ${{ inputs.script }}
