@@ -23,6 +23,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: ./.github/actions/bench
         with:
+          nix-shell: ''
           name: test
           archflags: -mavx2 -mbmi2 -mpopcnt -maes
           cflags: -DFORCE_X86_64
