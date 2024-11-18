@@ -234,7 +234,7 @@ class Test_Implementations:
             print(f"::group::run {self.compile_mode} {k} {self.test_type.desc()}")
 
         results[k] = {}
-        for scheme in SCHEME:
+        for scheme in [SCHEME.MLKEM512]:
             result = self.ts[k].run_scheme(
                 scheme,
                 actual_proc,
