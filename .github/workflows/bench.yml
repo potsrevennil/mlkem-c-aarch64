@@ -31,7 +31,7 @@ jobs:
           perf: PMU
           store_results: true
           gh_token: ${{ secrets.GITHUB_TOKEN }}
-          opt: true 
+          opt: false 
   bench:
     name: ${{ matrix.target.name }}
     strategy:
