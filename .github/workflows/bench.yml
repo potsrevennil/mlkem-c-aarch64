@@ -18,7 +18,6 @@ jobs:
   bench-test:
     runs-on: ubuntu-latest
     permissions:
-      deployments: write
       contents: read
       pull-requests: write
     steps:
