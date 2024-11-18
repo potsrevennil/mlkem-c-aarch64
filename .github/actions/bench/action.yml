@@ -92,3 +92,6 @@ runs:
         output-file-path: output.json
         github-token: ${{ inputs.gh_token }}
         auto-push: true
+        comment-on-alert: true
+        summary-always: true
+        alert-threshold: 3%
