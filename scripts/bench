@@ -30,7 +30,7 @@ with open(output, "w") as f:
                 {
                     "name": f"{str(scheme)} {primitive}",
                     "unit": "cycles",
-                    "value": 123457,
+                    "value": 12345,
                 }
             )
 

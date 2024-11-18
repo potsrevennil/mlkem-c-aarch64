@@ -27,7 +27,7 @@ jobs:
           archflags: -mavx2 -mbmi2 -mpopcnt -maes
           cflags: -DFORCE_X86_64
           perf: PMU
-          store_results: false
+          store_results: ${{ github.ref == 'refs/heads/main' }}
           gh_token: ${{ secrets.GITHUB_TOKEN }}
           opt: true
   bench:
