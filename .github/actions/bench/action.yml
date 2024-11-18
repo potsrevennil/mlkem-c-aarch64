@@ -93,4 +93,4 @@ runs:
         auto-push: ${{ inputs.store_results == 'true' }}
         comment-on-alert: true
         summary-always: true
-        alert-threshold: 103%
+        alert-threshold: 80%
