@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1731929132180,
+  "lastUpdate": 1731929672793,
   "repoUrl": "https://github.com/potsrevennil/mlkem-c-aarch64",
   "entries": {
     "test": [
@@ -596,6 +596,71 @@ window.BENCHMARK_DATA = {
           {
             "name": "ML-KEM-1024 decaps",
             "value": 67967,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "potsrevennil",
+            "username": "potsrevennil"
+          },
+          "committer": {
+            "name": "potsrevennil",
+            "username": "potsrevennil"
+          },
+          "id": "fbab8cd32737a0523847833ab1a0e17e7599878c",
+          "message": "wip",
+          "timestamp": "2024-11-18T11:28:48Z",
+          "url": "https://github.com/potsrevennil/mlkem-c-aarch64/pull/17/commits/fbab8cd32737a0523847833ab1a0e17e7599878c"
+        },
+        "date": 1731929672466,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-KEM-512 keypair",
+            "value": 19083,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-512 encaps",
+            "value": 24829,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-512 decaps",
+            "value": 32173,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-768 keypair",
+            "value": 32849,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-768 encaps",
+            "value": 37008,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-768 decaps",
+            "value": 47981,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-1024 keypair",
+            "value": 46992,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-1024 encaps",
+            "value": 53334,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-1024 decaps",
+            "value": 67828,
             "unit": "cycles"
           }
         ]
