@@ -79,6 +79,6 @@ runs:
         output-file-path: output.json
         github-token: ${{ inputs.gh_token }}
         auto-push: ${{ inputs.store_results == 'true' }}
-        comment-on-alert: true
+        comment-on-alert: false
         summary-always: true
         alert-threshold: 103%
