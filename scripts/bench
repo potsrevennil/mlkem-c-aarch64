@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+
+import json
+from enum import IntEnum
+
+output = "output.json"
+
+
+class SCHEME(IntEnum):
+    MLKEM512 = 1
+    MLKEM768 = 2
+    MLKEM1024 = 3
+
+    def __str__(self):
+        match self:
+            case SCHEME.MLKEM512:
+                return "ML-KEM-512"
+            case SCHEME.MLKEM768:
+                return "ML-KEM-768"
+            case SCHEME.MLKEM1024:
+                return "ML-KEM-1024"
+
+
+with open(output, "w") as f:
+    v = []
+    for scheme in SCHEME:
+        for primitive in ["keypair", "encaps", "decaps"]:
+            v.append(
+                {
+                    "name": f"{str(scheme)} {primitive}",
+                    "unit": "cycles",
+                    "value": 12345,
+                }
+            )
+
+    f.write(json.dumps(v))
