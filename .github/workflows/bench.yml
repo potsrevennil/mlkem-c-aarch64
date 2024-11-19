@@ -15,6 +15,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  bench-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: ./.github/actions/bench
+        with:
+          nix-shell: ''
+          name: test
+          archflags: -mavx2 -mbmi2 -mpopcnt -maes
+          cflags: -DFORCE_X86_64
+          perf: PMU
+          store_results: ${{ github.ref == 'refs/heads/main' }}
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          opt: true
   bench:
     name: ${{ matrix.target.name }}
     strategy:
