@@ -70,25 +70,12 @@ runs:
     - name: Run benchmark
       shell: ${{ env.SHELL }}
       run: |
-        ./scripts/tests bench -c ${{ inputs.perf }} --cross-prefix="${{ inputs.cross_prefix }}" \
-              --cflags="${{ inputs.cflags }}" --arch-flags="${{ inputs.archflags }}" \
-              --opt=$([[ ${{ inputs.opt }} == "false" ]] && echo "no_opt" || echo "opt")  \
-              -v --output=output.json ${{ inputs.bench_extra_args }}
-
-        ./scripts/tests bench --components -c ${{ inputs.perf }} --cross-prefix="${{ inputs.cross_prefix }}" \
-              --cflags="${{ inputs.cflags }}" --arch-flags="${{ inputs.archflags }}" \
-              --opt=$([[ ${{ inputs.opt }} == "false" ]] && echo "no_opt" || echo "opt")  \
-              -v --output=output.json ${{ inputs.bench_extra_args }}
-    - name: Check namespace
-      shell: ${{ env.SHELL }}
-      run: |
-        check-namespace
+        ./scripts/bench
     - name: Store benchmark result
-      if: ${{ inputs.store_results == 'true' }}
       uses: benchmark-action/github-action-benchmark@v1
       with:
         name: ${{ inputs.name }}
         tool: "customSmallerIsBetter"
         output-file-path: output.json
         github-token: ${{ inputs.gh_token }}
-        auto-push: true
+        auto-push: ${{ inputs.store_results == 'true' }}
