@@ -2,7 +2,7 @@
 
 name: Bench
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 on:
   workflow_dispatch:
@@ -57,7 +57,6 @@ jobs:
   ec2_all:
     name: ${{ matrix.target.name }} ${{ matrix.opt.name }}
     permissions:
-      contents: 'read'
       id-token: 'write'
     strategy:
       fail-fast: false
