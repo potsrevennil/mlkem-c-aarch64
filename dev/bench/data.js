@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1731992496248,
+  "lastUpdate": 1731996014322,
   "repoUrl": "https://github.com/potsrevennil/mlkem-c-aarch64",
   "entries": {
     "test": [
@@ -949,6 +949,75 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/potsrevennil/mlkem-c-aarch64/commit/799178d989bf44a0d1a2029bad2a93e8926639cf"
         },
         "date": 1731992495362,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ML-KEM-512 keypair",
+            "value": 12345,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-512 encaps",
+            "value": 12345,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-512 decaps",
+            "value": 12345,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-768 keypair",
+            "value": 12345,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-768 encaps",
+            "value": 12345,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-768 decaps",
+            "value": 12345,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-1024 keypair",
+            "value": 12345,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-1024 encaps",
+            "value": 12345,
+            "unit": "cycles"
+          },
+          {
+            "name": "ML-KEM-1024 decaps",
+            "value": 12345,
+            "unit": "cycles"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "15379156+potsrevennil@users.noreply.github.com",
+            "name": "Lim, Thing-han",
+            "username": "potsrevennil"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "29899131e6e93357a4e0cf218e9a59d4a31c0fee",
+          "message": "Merge pull request #26 from potsrevennil/dev\n\nci: set bench contents permission to write",
+          "timestamp": "2024-11-19T13:59:57+08:00",
+          "tree_id": "8294d50bc05ae00afc9cf57820cd2596840368ba",
+          "url": "https://github.com/potsrevennil/mlkem-c-aarch64/commit/29899131e6e93357a4e0cf218e9a59d4a31c0fee"
+        },
+        "date": 1731996013464,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
