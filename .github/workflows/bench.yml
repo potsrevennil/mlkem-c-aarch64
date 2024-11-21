@@ -11,11 +11,25 @@ on:
     branches: ["main"]
     types: [ "labeled" ]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
+  bench-test:
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    strategy:
+      fail-fast: true
+      matrix:
+       target:
+        - system: ubuntu-latest
+        - system: macos-latest
+    runs-on: ${{ matrix.target.system }}
+    steps:
+      - name: test
+        shell: bash
+        run: |
+          sleep 30
+          echo "Running ${{ matrix.target.system }}"
+
   bench:
     name: ${{ matrix.target.name }}
     strategy:
