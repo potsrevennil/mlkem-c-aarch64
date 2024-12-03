@@ -70,6 +70,8 @@ env:
 
 permissions:
   contents: read
+  id-token: read
+  pull-requests: read
 
 jobs:
   start-ec2-runner:
