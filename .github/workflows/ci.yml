@@ -22,10 +22,12 @@ jobs:
       - name: first
         id: first
         run: |
-          echo "shell=zsh" >> $GITHUB_OUTPUT
+          echo "SHELL=zsh" >> $GITHUB_ENV
       - name: check
         run: |
-          echo ${{ github.env }}
+          cat ${{ github.env }}
+          source ${{ github.env }}
+          echo $SHELL
 
   lint:
     strategy:
