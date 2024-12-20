@@ -25,7 +25,7 @@ jobs:
           echo "SHELL=bash" >> $GITHUB_ENV
       - name: check
         if: github.repository_owner != 'pq-code-package'
-        shell: $SHELL
+        shell: ${{ SHELL }}
         run: |
           echo $SHELL
 
