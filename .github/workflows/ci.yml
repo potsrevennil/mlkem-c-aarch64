@@ -24,9 +24,8 @@ jobs:
         run: |
           echo "shell=zsh" >> $GITHUB_OUTPUT
       - name: check
-        shell: ${{ steps.first.outputs.shell }}
         run: |
-          echo hello
+          echo ${{ github.env }}
 
   lint:
     strategy:
