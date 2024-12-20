@@ -22,7 +22,7 @@ jobs:
       - name: first
         id: first
         run: |
-          echo "SHELL=zsh" >> $GITHUB_ENV
+          echo "SHELL=bash" >> $GITHUB_ENV
       - name: check
         if: github.repository_owner != 'pq-code-package'
         run: |
