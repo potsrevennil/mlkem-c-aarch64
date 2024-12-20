@@ -18,14 +18,13 @@ concurrency:
 jobs:
   test:
     runs-on: macos-latest
+    if: github.repository_owner != 'pq-code-package'
     steps:
       - name: first
         id: first
         run: |
           echo "SHELL=bash" >> $GITHUB_ENV
       - name: check
-        if: github.repository_owner != 'pq-code-package'
-        shell: ${{ SHELL }}
         run: |
           echo $SHELL
 
