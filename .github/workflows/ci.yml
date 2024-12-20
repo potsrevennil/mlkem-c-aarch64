@@ -24,6 +24,7 @@ jobs:
         run: |
           echo "SHELL=zsh" >> $GITHUB_ENV
       - name: check
+        if: github.repository_owner != 'pq-code-package'
         run: |
           cat ${{ github.env }}
           source ${{ github.env }}
