@@ -59,7 +59,8 @@ There are further scripts used for development of mlkem-native, such as `format`
 
 ### nix setup
 
-We specify the development environment for mlkem-native using nix. If you want to help develop mlkem-native, please setup nix using the [nix installer script](https://nixos.org/download/), not your package manager. 
+We specify the development environment for mlkem-native using nix. If you want to help develop mlkem-native, please setup nix using the [nix installer script](https://nixos.org/download/), not your package manager.
+While we recommend using the latest Nix version provided by the Nix installer script, we currently support Nix versions >= 2.6.
 
 All the development and build dependencies are specified in [flake.nix](flake.nix). To execute a bash shell, run
 ```bash
