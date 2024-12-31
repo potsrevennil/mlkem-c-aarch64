@@ -466,8 +466,11 @@ jobs:
           git fetch origin --depth 1 $GITHUB_SHA
           git checkout FETCH_HEAD
       - name: nix develop
-        run: |
-          nix develop --experimental-features "nix-command flakes"
+        uses: ./.github/actions/setup-nix
+        with:
+          devShell: default
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'true'
   compatibility_tests:
     strategy:
       max-parallel: 4

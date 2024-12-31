@@ -52,9 +52,6 @@ runs:
         trap 'suppress $LINENO' ERR
 
         nix --version
-        nix config show | grep -E "^trusted-users = .*$USER"
-        nix config show | grep -E "^experimental-features = .*flakes"
-        nix config show | grep -E "^experimental-features = .*nix-command"
     - name: Install Nix
       shell: bash
       if: ${{ steps.nix-pre-check.outputs.installed == 'false' }}
@@ -74,7 +71,6 @@ runs:
 
         cat >> ~/.config/nix/nix.conf << EOF
           trusted-users = ${USER:-}
-          experimental-features = nix-command flakes
           substituters = https://cache.nixos.org/
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
           max-jobs = auto
@@ -107,7 +103,7 @@ runs:
           . ~/.nix-profile/etc/profile.d/nix.sh
         fi
         echo "$(dirname $(which nix))" >> $GITHUB_PATH
-        nix profile install nixpkgs/nixos-24.05#sqlite
+        nix profile --experimental-features "nix-command flakes" install nixpkgs/nixos-24.05#sqlite
         echo "::endgroup::"
     - name: Post-check nix
       id: nix-post-check
@@ -126,8 +122,7 @@ runs:
 
         echo "cache_prefix=$cache_prefix" >> $GITHUB_OUTPUT
 
-        nix config check
-        nix config show
+        nix --experimental-feature "nix-command" show-config
         echo "::endgroup::"
     - uses: nix-community/cache-nix-action@8351fb9f51c580c96c509987ebb99e38aed956ce # v5.2.1
       id: cache
@@ -151,7 +146,7 @@ runs:
         fi
 
         echo NIX_SHELL="${{ inputs.devShell }}" >> $GITHUB_ENV
-        nix_extra_flags="${{ inputs.verbose == 'false' && '--quiet' || '' }}"
+        nix_extra_flags="${{ inputs.verbose == 'false' && '--quiet' || '' }} --experimental-features 'nix-command flakes'"
         echo SHELL="$(which nix) develop $nix_extra_flags .#${{ inputs.devShell }} -c bash -e {0}" >> $GITHUB_ENV
         echo "::endgroup::"
     - name: Prepare nix dev shell
