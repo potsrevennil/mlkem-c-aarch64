@@ -452,6 +452,7 @@ jobs:
           echo $USER
           sudo usermod -a -G nix-users $USER
           sudo -s -u $USER bash
+          groups
           nix profile --experimental-features "nix-command" install nixpkgs#hello
       # - uses: ./.github/actions/setup-nix
       #   with:
