@@ -449,7 +449,6 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update && sudo apt-get install nix
-          sudo mkdir /nix
           sudo chown -R $USER /nix
           nix run --experimental-features "nix-command flakes" nixpkgs#nix-info -- -m
       # - uses: ./.github/actions/setup-nix
