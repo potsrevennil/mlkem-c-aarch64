@@ -63,7 +63,7 @@ runs:
 
         if [[ $NIX_INSTALL_MODE == 'multi' ]]; then
           curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install \
-          --no-confirm \
+          --no-confirm
         else
           sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
