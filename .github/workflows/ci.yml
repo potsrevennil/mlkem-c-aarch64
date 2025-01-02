@@ -450,12 +450,7 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install nix
           sudo usermod -a -G nix-users $USER
-          newgrp nix-users
-          groups
-      - name: check
-        run: |
-          groups
-          nix profile --experimental-features "nix-command" install nixpkgs#hello
+          sudo -s -u $USER bash -c "nix run --experimental-features \"nix-command flakes\" nixpkgs#nix-info -- -m"
       # - uses: ./.github/actions/setup-nix
       #   with:
       #     devShell: default
