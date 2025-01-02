@@ -450,7 +450,8 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install nix
           sudo usermod -a -G nix-users $USER
-          sudo -u $USER bash
+          su -u $USER
+          groups
       - name: check
         run: |
           groups
