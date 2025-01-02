@@ -449,9 +449,10 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update && sudo apt-get install nix
-          echo $USER
           sudo usermod -a -G nix-users $USER
           sudo -u $USER bash
+      - name: check
+        run: |
           groups
           nix profile --experimental-features "nix-command" install nixpkgs#hello
       # - uses: ./.github/actions/setup-nix
