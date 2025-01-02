@@ -64,17 +64,9 @@ runs:
         if [[ $NIX_INSTALL_MODE == 'multi' ]]; then
           curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install \
           --no-confirm \
-          --extra-conf "trusted-users = ${USER:-}" \
-          --extra-conf "experimental-features = nix-command flakes"
         else
           sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
-        cat >> ~/.config/nix/nix.conf << EOF
-          trusted-users = ${USER:-}
-          substituters = https://cache.nixos.org/
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-          max-jobs = auto
-        EOF
         fi
 
         if [[ ! -z $GH_TOKEN ]]; then
@@ -111,6 +103,14 @@ runs:
       shell: bash -lo pipefail {0}
       run: |
         echo "::group::nix config"
+
+        cat >> ~/.config/nix/nix.conf << EOF
+          trusted-users = ${USER:-}
+          substituters = https://cache.nixos.org/
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+          max-jobs = auto
+        EOF
+
         if [[ -z "${{ inputs.cache_prefix }}" ]]; then
           cache_prefix="${{ runner.os }}-${{ runner.arch }}-${{ inputs.devShell }}"
         else
