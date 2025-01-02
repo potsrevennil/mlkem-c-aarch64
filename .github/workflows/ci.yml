@@ -451,7 +451,7 @@ jobs:
           sudo apt-get update && sudo apt-get install nix
           echo $USER
           sudo usermod -a -G nix-users $USER
-          groups
+          sudo -s -u $USER bash
           nix profile --experimental-features "nix-command" install nixpkgs#hello
       # - uses: ./.github/actions/setup-nix
       #   with:
