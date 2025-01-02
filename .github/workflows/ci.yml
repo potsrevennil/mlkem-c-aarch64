@@ -450,12 +450,11 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install nix
           sudo chown -R $USER /nix
-          nix run --experimental-features "nix-command flakes" nixpkgs#nix-info -- -m
-      # - uses: ./.github/actions/setup-nix
-      #   with:
-      #     devShell: default
-      #     gh_token: ${{ secrets.GITHUB_TOKEN }}
-      #     cache: 'true'
+      - uses: ./.github/actions/setup-nix
+        with:
+          devShell: default
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          cache: 'true'
   compatibility_tests:
     strategy:
       max-parallel: 4
