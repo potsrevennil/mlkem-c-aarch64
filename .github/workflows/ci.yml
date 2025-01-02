@@ -449,6 +449,7 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update && sudo apt-get install nix
+          usermod -a -G nix-users $USER
       - uses: ./.github/actions/setup-nix
         with:
           devShell: default
