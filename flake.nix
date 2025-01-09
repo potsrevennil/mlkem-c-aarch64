@@ -23,6 +23,7 @@
         in
         {
           packages.cbmc = util.cbmc;
+          packages.hol_light = pkgs.callPackage ./nix/hol_light { };
 
           devShells.default = util.wrapShell util.mkShell {
             packages =
@@ -30,12 +31,16 @@
               util.linters ++
               builtins.attrValues
                 {
-                  inherit (config.packages) cbmc;
+                  inherit (config.packages) cbmc hol_light;
+                  inherit (pkgs.ocamlPackages) camlp5;
                   inherit (pkgs)
+                    ocaml
                     direnv
                     nix-direnv;
                 };
           };
+
+          devShells.hol_light = util.wrapShell util.mkShell { packages = [ config.packages.hol_light ]; };
 
           devShells.ci = util.wrapShell util.mkShell { packages = util.core { cross = false; }; };
           devShells.ci-cross = util.wrapShell util.mkShell { packages = util.core { }; };
