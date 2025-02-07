@@ -123,7 +123,7 @@ jobs:
         id: preprocess
         shell: bash
         run: |
-          echo "nix-shell=${{ inputs.cbmc && 'ci-cbmc' || 'ci' }}${{ (inputs.compile_mode == 'cross' || inputs.compile_mode == 'all') && '-cross' || '' }}" >> $GITHUB_OUTPUT
+          echo "nix-shell=${{ (inputs.cbmc || inputs.compile_mode == 'cross' || inputs.compile_mode == 'all') && 'ci-cross' || 'ci' }}" >> $GITHUB_OUTPUT
       - name: Functional Tests
         uses: ./.github/actions/multi-functest
         with:
