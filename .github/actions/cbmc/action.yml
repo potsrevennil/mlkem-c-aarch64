@@ -48,6 +48,7 @@ runs:
               - Cadical Version $(cadical --version)
               - $(bash --version | grep -m1 "")
             EOF
+
       - name: Run CBMC proofs (MLKEM_K=${{ inputs.mlkem_k }})
         shell: ${{ env.SHELL }}
         run: |
