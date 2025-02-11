@@ -18,13 +18,34 @@ on:
       - 'flake.lock'
       - 'flake.nix'
       - 'nix/**'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  build_nix_cache:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ ubuntu-24.04, ubuntu-24.04-arm, macos-latest ]
+    name: build nix cache (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: ./.github/actions/setup-nix
+        with:
+          nix-cache: true
+          verbose: true
+          purge_cache: true
+          devShell: default
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          script:
+            nix profile install 'github:risicle/nix-heuristic-gc' --no-write-lock-file
+            nix-heuristic-gc 2G
   develop_environment:
+    needs: [ build_nix_cache ]
     strategy:
       fail-fast: false
       matrix:
@@ -71,17 +92,15 @@ jobs:
           git remote add origin $GITHUB_SERVER_URL/$GITHUB_REPOSITORY
           git fetch origin --depth 1 $GITHUB_SHA
           git checkout FETCH_HEAD
-      - name: Install nix via apt
-        if: ${{ matrix.target.install == 'apt' }}
+      - uses: ./.github/actions/setup-nix
+        if: ${{ matrix.target.container == '' }}
+        with:
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          devShell: default
+          verbose: true
+          cache: true
+          install: ${{ matrix.target.install }}
+      - name: nix develop (in container)
+        if: ${{ matrix.target.container != '' }}
         run: |
-          ${{ matrix.target.container == '' && 'sudo' || '' }} apt install nix -y
-      - name: Install nix via installer script
-        if: ${{ matrix.target.install == 'installer' }}
-        shell: bash
-        run: |
-          sh <(curl -L https://nixos.org/nix/install) --daemon
-          . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-          echo "$(dirname $(which nix))" >> $GITHUB_PATH
-      - name: nix develop
-        run: |
-          ${{ matrix.target.install == 'apt' && 'sudo' || '' }} nix develop --experimental-features "nix-command flakes" --access-tokens "github.com=${{ secrets.GITHUB_TOKEN }}"
+          nix develop --experimental-features "nix-command flakes" --access-tokens "github.com=${{ secrets.GITHUB_TOKEN }}"

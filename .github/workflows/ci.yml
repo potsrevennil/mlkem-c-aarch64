@@ -10,6 +10,16 @@ on:
   pull_request:
     branches: ["main"]
     types: [ "opened", "synchronize" ]
+    paths:
+      - '**'
+      - '!flake.lock'
+      - '!flake.nix'
+      - '!nix/**'
+  workflow_run:
+    workflows:
+      - Nix
+    types:
+      - completed
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
